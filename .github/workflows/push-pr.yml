@@ -2,41 +2,31 @@ on:
   push:
     branches:
       - main
-
   pull_request:
     branches:
       - main
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-15
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Select Xcode 16.4
-        run: |
-          sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
 
       - name: Verify Xcode Version
-        run: |
-          xcode-select -p
-          xcodebuild -version
+        run: xcodebuild -version
 
       - name: List Simulators
-        run: |
-          xcrun simctl list devices available
+        run: xcrun simctl list devices available
 
       - name: Build App
         run: |
-          UDID=$(xcrun simctl list devices available -j | \
-          python3 -c "
-import json,sys
-d=json.load(sys.stdin)['devices']
-iphones=[v for key,devs in d.items() if 'iOS' in key for v in devs if 'iPhone' in v['name'] and v['isAvailable']]
-print(iphones[0]['udid'])
-")
+          UDID=$(xcrun simctl list devices available -j | python3 -c \
+            "import json,sys; d=json.load(sys.stdin)['devices']; iphones=[v for key,devs in d.items() if 'iOS' in key for v in devs if 'iPhone' in v['name'] and v['isAvailable']]; print(iphones[0]['udid'])")
 
           echo "Using simulator: $UDID"
 
