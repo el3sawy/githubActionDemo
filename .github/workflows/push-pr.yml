@@ -1,56 +1,40 @@
-on:
+on: 
   push:
     branches:
       - main
   pull_request:
     branches:
       - main
-
 jobs:
   build:
-    runs-on: [self-hosted, macOS]
+    runs-on: macos-26-xlarge
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
 
-      - name: Select Xcode 16.4
-        run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
-
+      - name: Select Xcode 26.4
+        run: |
+          sudo xcode-select -s /Applications/Xcode_26.4.app/Contents/Developer
+      
       - name: Verify Xcode Version
-        run: xcodebuild -version
-
-      - name: Link iOS Runtime
         run: |
-          xcrun simctl runtime add "com.apple.CoreSimulator.SimRuntime.iOS-26-2" || true
-
-      - name: Resolve Simulator UDID
-        run: |
-          UDID=$(xcrun simctl list devices available -j | python3 -c \
-            "import json,sys; d=json.load(sys.stdin)['devices']; iphones=[v for key,devs in d.items() if 'iOS' in key for v in devs if 'iPhone' in v['name'] and v['isAvailable']]; print(iphones[0]['udid'])")
-          echo "SIMULATOR_UDID=$UDID" >> $GITHUB_ENV
-          echo "Resolved simulator UDID: $UDID"
-
+          xcode-select -p
+          xcodebuild -version
+      
+      - name: List Simulators
+        run: xcrun simctl list devices available
+      
       - name: Boot Simulator
         run: |
-          xcrun simctl boot $SIMULATOR_UDID || true
-          xcrun simctl bootstatus $SIMULATOR_UDID -b
+          xcrun simctl boot 86C81BD8-3941-4DB2-A7E0-41895F011C48
+          xcrun simctl bootstatus 86C81BD8-3941-4DB2-A7E0-41895F011C48 -b
 
       - name: Build App
         run: |
-          xcodebuild \
-            -project CIDemo.xcodeproj \
-            -scheme CIDemo \
-            -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
-            clean build \
-            CODE_SIGNING_ALLOWED=NO \
-            | xcpretty || xcodebuild \
-            -project CIDemo.xcodeproj \
-            -scheme CIDemo \
-            -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
-            clean build \
-            CODE_SIGNING_ALLOWED=NO
-
-      - name: Shutdown Simulator
-        if: always()
-        run: xcrun simctl shutdown $SIMULATOR_UDID || true
+         xcodebuild \
+         -project CIDemo.xcodeproj \
+         -scheme CIDemo \
+         -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.4'
+         clean build \
+         CODE_SIGNING_ALLOWED=NO
