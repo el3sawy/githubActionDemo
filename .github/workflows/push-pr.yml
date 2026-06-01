@@ -1,40 +1,48 @@
-on: 
+on:
   push:
     branches:
       - main
+
   pull_request:
     branches:
       - main
+
 jobs:
   build:
     runs-on: macos-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v4
 
       - name: Select Xcode 16.4
         run: |
           sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
-      
+
       - name: Verify Xcode Version
         run: |
           xcode-select -p
           xcodebuild -version
-      
+
       - name: List Simulators
-        run: xcrun simctl list devices available
-      
-      - name: Boot Simulator
         run: |
-          xcrun simctl boot 86C81BD8-3941-4DB2-A7E0-41895F011C48
-          xcrun simctl bootstatus 86C81BD8-3941-4DB2-A7E0-41895F011C48 -b
+          xcrun simctl list devices available
 
       - name: Build App
         run: |
-         xcodebuild \
-         -project CIDemo.xcodeproj \
-         -scheme CIDemo \
-         -destination "platform=iOS Simulator,id=86C81BD8-3941-4DB2-A7E0-41895F011C48" \
-         clean build \
-         CODE_SIGNING_ALLOWED=NO
+          UDID=$(xcrun simctl list devices available -j | \
+          python3 -c "
+import json,sys
+d=json.load(sys.stdin)['devices']
+iphones=[v for key,devs in d.items() if 'iOS' in key for v in devs if 'iPhone' in v['name'] and v['isAvailable']]
+print(iphones[0]['udid'])
+")
+
+          echo "Using simulator: $UDID"
+
+          xcodebuild \
+            -project CIDemo.xcodeproj \
+            -scheme CIDemo \
+            -destination "platform=iOS Simulator,id=$UDID" \
+            clean build \
+            CODE_SIGNING_ALLOWED=NO
