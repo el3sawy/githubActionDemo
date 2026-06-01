@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -20,19 +20,37 @@ jobs:
       - name: Verify Xcode Version
         run: xcodebuild -version
 
-      - name: List Simulators
-        run: xcrun simctl list devices available
+      - name: Link iOS Runtime
+        run: |
+          xcrun simctl runtime add "com.apple.CoreSimulator.SimRuntime.iOS-26-2" || true
 
-      - name: Build App
+      - name: Resolve Simulator UDID
         run: |
           UDID=$(xcrun simctl list devices available -j | python3 -c \
             "import json,sys; d=json.load(sys.stdin)['devices']; iphones=[v for key,devs in d.items() if 'iOS' in key for v in devs if 'iPhone' in v['name'] and v['isAvailable']]; print(iphones[0]['udid'])")
+          echo "SIMULATOR_UDID=$UDID" >> $GITHUB_ENV
+          echo "Resolved simulator UDID: $UDID"
 
-          echo "Using simulator: $UDID"
+      - name: Boot Simulator
+        run: |
+          xcrun simctl boot $SIMULATOR_UDID || true
+          xcrun simctl bootstatus $SIMULATOR_UDID -b
 
+      - name: Build App
+        run: |
           xcodebuild \
             -project CIDemo.xcodeproj \
             -scheme CIDemo \
-            -destination "platform=iOS Simulator,id=$UDID" \
+            -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
+            clean build \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcpretty || xcodebuild \
+            -project CIDemo.xcodeproj \
+            -scheme CIDemo \
+            -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
             clean build \
             CODE_SIGNING_ALLOWED=NO
+
+      - name: Shutdown Simulator
+        if: always()
+        run: xcrun simctl shutdown $SIMULATOR_UDID || true
