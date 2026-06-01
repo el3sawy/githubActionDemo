@@ -23,7 +23,7 @@ jobs:
           xcodebuild -version
       
       - name: List Simulators
-          run: xcrun simctl list devices available
+        run: xcrun simctl list devices available
       
       - name: Build APP
         run: |
