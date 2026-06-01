@@ -25,10 +25,16 @@ jobs:
       - name: List Simulators
         run: xcrun simctl list devices available
       
-      - name: Build APP
+      - name: Boot Simulator
         run: |
-           xcodebuild \
-           -project CIDemo.xcodeproj \
-            -scheme CIDemo \
-            -destination "platform=iOS Simulator,name=Any iOS Simulator Device" \
-            clean build
+          xcrun simctl boot 86C81BD8-3941-4DB2-A7E0-41895F011C48
+          xcrun simctl bootstatus 86C81BD8-3941-4DB2-A7E0-41895F011C48 -b
+
+      - name: Build App
+        run: |
+         xcodebuild \
+         -project CIDemo.xcodeproj \
+         -scheme CIDemo \
+         -destination "platform=iOS Simulator,id=86C81BD8-3941-4DB2-A7E0-41895F011C48" \
+         clean build \
+         CODE_SIGNING_ALLOWED=NO
