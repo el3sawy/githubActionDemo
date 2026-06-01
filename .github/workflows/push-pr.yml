@@ -1,0 +1,17 @@
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+      - uses: actions/checkout@v6.0.2
+      - name: Show Xcode Info
+        run: |
+          xcode-select -p
+          xcodebuild -version
