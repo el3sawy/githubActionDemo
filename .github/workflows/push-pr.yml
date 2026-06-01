@@ -39,6 +39,5 @@ jobs:
          xcodebuild \
          -project CIDemo.xcodeproj \
          -scheme CIDemo \
-         -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.2'
-         clean build \
+         -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.2' \
          CODE_SIGNING_ALLOWED=NO
