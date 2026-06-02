@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E2755BE62FCED48C00DB4EBF /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E2755BE52FCED48C00DB4EBF /* SDWebImageSwiftUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		E203CE452FBB9A660022AD59 /* CI Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CI Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2755BE62FCED48C00DB4EBF /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = CIDemo;
 			packageProductDependencies = (
+				E2755BE52FCED48C00DB4EBF /* SDWebImageSwiftUI */,
 			);
 			productName = CIDemo;
 			productReference = E203CE452FBB9A660022AD59 /* CI Dev.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = E203CE3C2FBB9A660022AD59;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E2755BE42FCED48C00DB4EBF /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E203CE462FBB9A660022AD59 /* Products */;
 			projectDirPath = "";
@@ -441,6 +450,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E2755BE42FCED48C00DB4EBF /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E2755BE52FCED48C00DB4EBF /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2755BE42FCED48C00DB4EBF /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E203CE3D2FBB9A660022AD59 /* Project object */;
 }
