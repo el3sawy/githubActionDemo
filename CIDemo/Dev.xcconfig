@@ -10,4 +10,4 @@
 
 TDRA_HOST = tdra.gov.ae.pro
 PRODUCT_NAME = CI Dev
-BUNDLE_IDENTIFIER = biz.enon.uaetra.DEV
+BUNDLE_IDENTIFIER = com.cura.balleh
