@@ -1,12 +1,12 @@
-on: 
-  push:
+on:
+ push:
     branches:
       - main
-  pull_request:
+pull_request:
     branches:
       - main
 jobs:
-  build:
+  test:
     runs-on: macos-26
 
     steps:
@@ -16,40 +16,15 @@ jobs:
           xcode-version: '26.5'
       - name: Checkout code
         uses: actions/checkout@v6.0.2
-
-      # - name: Select Xcode 26.4
-      #   run: |
-      #     sudo xcode-select -s /Applications/Xcode_26.4.app/Contents/Developer
       
-      - name: Verify Xcode Version
-        run: |
-          xcode-select -p
-          xcodebuild -version
-      
-      - name: Cache SPM Dependencies
-        uses: actions/cache@v4
+      - name: ruby version
+        uses: ruby/setup-ruby@v1
         with:
-          path: |
-            ~/Library/Caches/org.swift.swiftpm
-            ~/.swiftpm
-            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-spm-
-
-
-      # - name: List Simulators
-      #   run: xcrun simctl list devices available
+          ruby-version: 4.0.1
+          bundler-cache: true
       
-      # - name: Boot Simulator
-      #   run: |
-      #     xcrun simctl boot 86C81BD8-3941-4DB2-A7E0-41895F011C48
-      #     xcrun simctl bootstatus 86C81BD8-3941-4DB2-A7E0-41895F011C48 -b
-
-      - name: Build App
-        run: |
-         xcodebuild \
-         -project CIDemo.xcodeproj \
-         -scheme CIDemo \
-         -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' \
-         CODE_SIGNING_ALLOWED=NO
+      - name: Install Bundler
+        run: bundle install
+      
+      - name: Run SwiftLint
+        run: swiftlint
