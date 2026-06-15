@@ -1,5 +1,10 @@
 require "json"
 
+# Xcode build & test summary
+xcode_summary.inline_mode = true
+xcode_summary.report "fastlane/test_output/CIDemo.xcresult"
+
+# Unit test coverage
 coverage = JSON.parse(File.read("coverage.json"))
 
 markdown("## ✅ Unit Test Coverage")

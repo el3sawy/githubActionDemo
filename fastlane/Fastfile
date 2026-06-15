@@ -31,7 +31,7 @@ platform :ios do
   end
 
   lane :danger do
-   danger
-  end 
+    danger(dangerfile: "Dangerfile.yml")
+  end
 
 end

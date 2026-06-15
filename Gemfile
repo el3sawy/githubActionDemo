@@ -5,3 +5,4 @@ source "https://rubygems.org"
 # gem "rails"
 gem "fastlane", '2.236.1'
 gem "danger"
+gem "danger-xcode_summary"

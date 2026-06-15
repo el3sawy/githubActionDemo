@@ -29,9 +29,20 @@ jobs:
       - name: Run Tests
         run: bundle exec fastlane tests
       
-      - name: Upload-artifacts
+      - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: coverage.json
-      
+
+      - name: Upload xcresult artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcresult
+          path: fastlane/test_output/CIDemo.xcresult
+
+      - name: Run Danger
+        if: github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec fastlane danger
