@@ -26,5 +26,8 @@ jobs:
       - name: Install Bundler
         run: bundle install
       
-      - name: SwiftLint
-        uses: norio-nomura/action-swiftlint@3.2.1
+      - name: Setup SwiftLint
+        uses: m-takuma/setup-swiftlint@1.0.0
+        with:
+          swiftlint-version: # default is 0.56.2
+          
