@@ -26,5 +26,5 @@ jobs:
       - name: Install Bundler
         run: bundle install
       
-      - name: Run SwiftLint
-        run: swiftlint
+      - name: SwiftLint
+        uses: norio-nomura/action-swiftlint@3.2.1
