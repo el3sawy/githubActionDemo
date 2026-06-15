@@ -10,14 +10,30 @@
 		E2755BE62FCED48C00DB4EBF /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E2755BE52FCED48C00DB4EBF /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E2964F352FE089A900812A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E203CE3D2FBB9A660022AD59 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E203CE442FBB9A660022AD59;
+			remoteInfo = CIDemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		E203CE452FBB9A660022AD59 /* CI Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CI Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2964F312FE089A900812A0A /* CI PROTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CI PROTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E203CE472FBB9A660022AD59 /* CIDemo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = CIDemo;
+			sourceTree = "<group>";
+		};
+		E2964F322FE089A900812A0A /* CI PROTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "CI PROTests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -31,6 +47,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E2964F2E2FE089A900812A0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -38,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				E203CE472FBB9A660022AD59 /* CIDemo */,
+				E2964F322FE089A900812A0A /* CI PROTests */,
 				E203CE462FBB9A660022AD59 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				E203CE452FBB9A660022AD59 /* CI Dev.app */,
+				E2964F312FE089A900812A0A /* CI PROTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,6 +101,29 @@
 			productReference = E203CE452FBB9A660022AD59 /* CI Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E2964F302FE089A900812A0A /* CI PROTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E2964F3A2FE089A900812A0A /* Build configuration list for PBXNativeTarget "CI PROTests" */;
+			buildPhases = (
+				E2964F2D2FE089A900812A0A /* Sources */,
+				E2964F2E2FE089A900812A0A /* Frameworks */,
+				E2964F2F2FE089A900812A0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E2964F362FE089A900812A0A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E2964F322FE089A900812A0A /* CI PROTests */,
+			);
+			name = "CI PROTests";
+			packageProductDependencies = (
+			);
+			productName = "CI PROTests";
+			productReference = E2964F312FE089A900812A0A /* CI PROTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -88,6 +136,10 @@
 				TargetAttributes = {
 					E203CE442FBB9A660022AD59 = {
 						CreatedOnToolsVersion = 26.5;
+					};
+					E2964F302FE089A900812A0A = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = E203CE442FBB9A660022AD59;
 					};
 				};
 			};
@@ -109,12 +161,20 @@
 			projectRoot = "";
 			targets = (
 				E203CE442FBB9A660022AD59 /* CIDemo */,
+				E2964F302FE089A900812A0A /* CI PROTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E203CE432FBB9A660022AD59 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2964F2F2FE089A900812A0A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -131,7 +191,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E2964F2D2FE089A900812A0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E2964F362FE089A900812A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E203CE442FBB9A660022AD59 /* CIDemo */;
+			targetProxy = E2964F352FE089A900812A0A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E203CE4E2FBB9A670022AD59 /* Debug */ = {
@@ -444,6 +519,66 @@
 			};
 			name = Dev;
 		};
+		E2964F372FE089A900812A0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ahmed.CI-PROTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CI Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CI Dev";
+			};
+			name = Debug;
+		};
+		E2964F382FE089A900812A0A /* Dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ahmed.CI-PROTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CI Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CI Dev";
+			};
+			name = Dev;
+		};
+		E2964F392FE089A900812A0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ahmed.CI-PROTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CI Dev.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CI Dev";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -463,6 +598,16 @@
 				E203CE512FBB9A670022AD59 /* Debug */,
 				E203CE5A2FBBA6EA0022AD59 /* Dev */,
 				E203CE522FBB9A670022AD59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E2964F3A2FE089A900812A0A /* Build configuration list for PBXNativeTarget "CI PROTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E2964F372FE089A900812A0A /* Debug */,
+				E2964F382FE089A900812A0A /* Dev */,
+				E2964F392FE089A900812A0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
