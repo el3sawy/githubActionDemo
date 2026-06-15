@@ -28,4 +28,15 @@ jobs:
      
       - name: Run Tests
         run: bundle exec fastlane tests
+      
+      - name: Upload-artifacts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage.json
+      
+      - name: Run Danger
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec danger
           

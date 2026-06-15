@@ -1,0 +1,11 @@
+require "json"
+
+coverage = JSON.parse(File.read("coverage.json"))
+
+markdown("## ✅ Unit Test Coverage")
+
+overall = coverage["lineCoverage"] * 100
+
+markdown("| Metric | Value |")
+markdown("|--------|-------|")
+markdown("| Overall Coverage | #{overall.round(2)}% |")
