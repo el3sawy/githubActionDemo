@@ -44,5 +44,5 @@ jobs:
       - name: Run Danger
         if: github.event_name == 'pull_request'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec fastlane danger
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec danger pr ${{ github.event.pull_request.html_url }} --dangerfile=Dangerfile.yml

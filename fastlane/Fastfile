@@ -31,8 +31,12 @@ platform :ios do
     )
   end
 
-  lane :danger do
+  lane :danger1111 do
     danger(dangerfile: "Dangerfile.yml")
+  end
+
+  lane :danger_local do
+    sh("bundle exec danger local --dangerfile=../Dangerfile.yml")
   end
 
 end
