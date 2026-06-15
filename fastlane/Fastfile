@@ -23,6 +23,7 @@ platform :ios do
     scan(
       project: "CIDemo.xcodeproj",
       scheme: "CIDemo",
+      testplan: "CITest",
       code_coverage: true,
       result_bundle: true,
       output_directory: "fastlane/test_output",
