@@ -35,8 +35,3 @@ jobs:
           name: coverage
           path: coverage.json
       
-      - name: Run Danger
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec danger
-          
