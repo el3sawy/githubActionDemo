@@ -23,10 +23,18 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
-### ios danger
+### ios danger1111
 
 ```sh
-[bundle exec] fastlane ios danger
+[bundle exec] fastlane ios danger1111
+```
+
+
+
+### ios danger_local
+
+```sh
+[bundle exec] fastlane ios danger_local
 ```
 
 

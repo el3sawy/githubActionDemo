@@ -29,6 +29,9 @@ jobs:
       - name: Run Tests
         run: bundle exec fastlane tests
       
+      - name: Generate coverage JSON
+        run: xcrun xccov view --report --json fastlane/test_output/CIDemo.xcresult > coverage.json
+
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
@@ -44,5 +47,5 @@ jobs:
       - name: Run Danger
         if: github.event_name == 'pull_request'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec fastlane danger
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec danger pr ${{ github.event.pull_request.html_url }} --dangerfile=Dangerfile.yml
