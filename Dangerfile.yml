@@ -5,12 +5,16 @@ xcode_summary.inline_mode = true
 xcode_summary.report "fastlane/test_output/CIDemo.xcresult"
 
 # Unit test coverage
-coverage = JSON.parse(File.read("coverage.json"))
+if File.exist?("coverage.json")
+  coverage = JSON.parse(File.read("coverage.json"))
 
-markdown("## ✅ Unit Test Coverage")
+  markdown("## ✅ Unit Test Coverage")
 
-overall = coverage["lineCoverage"] * 100
+  overall = coverage["lineCoverage"] * 100
 
-markdown("| Metric | Value |")
-markdown("|--------|-------|")
-markdown("| Overall Coverage | #{overall.round(2)}% |")
+  markdown("| Metric | Value |")
+  markdown("|--------|-------|")
+  markdown("| Overall Coverage | #{overall.round(2)}% |")
+else
+  warn("Coverage report not generated — tests may have failed.")
+end
