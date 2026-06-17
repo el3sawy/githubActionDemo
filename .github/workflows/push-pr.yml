@@ -28,11 +28,9 @@ jobs:
      
       - name: Run Tests
         run: bundle exec fastlane tests
-        continue-on-error: true
 
       - name: Generate coverage JSON
         run: xcrun xccov view --report --json fastlane/test_output/CIDemo.xcresult > coverage.json
-        continue-on-error: true
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
