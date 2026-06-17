@@ -1,8 +1,12 @@
 require "json"
 
 # Xcode build & test summary
-xcode_summary.inline_mode = true
-xcode_summary.report "fastlane/test_output/CIDemo.xcresult"
+if File.exist?("fastlane/test_output/CIDemo.xcresult")
+  xcode_summary.inline_mode = true
+  xcode_summary.report "fastlane/test_output/CIDemo.xcresult"
+else
+  warn("xcresult not found — build or test step may have failed before producing output.")
+end
 
 # Unit test coverage
 if File.exist?("coverage.json")
