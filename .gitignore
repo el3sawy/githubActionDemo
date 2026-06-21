@@ -18,3 +18,5 @@ Icon
 .com.apple.timemachine.donotpresent
 Gemfile.lock
 .build
+CIDemo.xcodeproj/project.xcworkspace/xcuserdata
+.DS_Store

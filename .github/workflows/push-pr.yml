@@ -11,6 +11,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      statuses: write
 
     steps:
       - name: Select Xcode 26.5
@@ -46,4 +47,18 @@ jobs:
         with:
           name: xcresult
           path: fastlane/test_output/CIDemo.xcresult
+
+      - name: Install Danger JS
+        if: always() && github.event_name == 'pull_request'
+        run: npm install -g danger
+
+      - name: Build Danger Swift
+        if: always() && github.event_name == 'pull_request'
+        run: swift build
+
+      - name: Run Danger
+        if: always() && github.event_name == 'pull_request'
+        run: swift run danger-swift ci
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
