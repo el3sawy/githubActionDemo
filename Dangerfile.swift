@@ -5,19 +5,19 @@ let git = danger.git
 
 // Warn on large PRs
 let bigPRThreshold = 600
-let totalChanges = (git.insertions ?? 0) + (git.deletions ?? 0)
+let pr = danger.github.pullRequest
+let totalChanges = (pr.additions ?? 0) + (pr.deletions ?? 0)
 if totalChanges > bigPRThreshold {
     warn("PR is large (\(totalChanges) lines changed). Consider splitting into smaller PRs.")
 }
 
 // Fail if PR has no description
-if let body = danger.github.pullRequest.body, body.isEmpty {
+if pr.body == nil || pr.body?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true {
     fail("Please provide a PR description.")
 }
 
 // Warn if PR title contains WIP
-let prTitle = danger.github.pullRequest.title
-if prTitle.lowercased().contains("wip") {
+if pr.title.lowercased().contains("wip") {
     warn("PR is marked as WIP.")
 }
 
