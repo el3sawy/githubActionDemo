@@ -18,7 +18,7 @@ jobs:
         with: 
           xcode-version: '26.5'
       - name: Checkout code
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v4
       
       - name: ruby version
         uses: ruby/setup-ruby@v1
@@ -47,8 +47,3 @@ jobs:
           name: xcresult
           path: fastlane/test_output/CIDemo.xcresult
 
-      - name: Run Danger
-        if: always() && github.event_name == 'pull_request'
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec danger pr ${{ github.event.pull_request.html_url }} --dangerfile=Dangerfile.yml
