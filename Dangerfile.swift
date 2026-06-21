@@ -29,6 +29,60 @@ if sourceChanged && !testsChanged {
     warn("Source files changed but no test files modified. Consider adding tests.")
 }
 
+// Check per-file coverage >= 80%
+let coveragePath = "coverage.json"
+let coverageThreshold = 0.80
+
+if let coverageData = FileManager.default.contents(atPath: coveragePath),
+   let json = try? JSONSerialization.jsonObject(with: coverageData) as? [String: Any],
+   let targets = json["targets"] as? [[String: Any]] {
+
+    struct FileCoverage {
+        let name: String
+        let coverage: Double
+        let covered: Int
+        let executable: Int
+    }
+
+    var belowThreshold: [FileCoverage] = []
+
+    for target in targets {
+        guard let files = target["files"] as? [[String: Any]] else { continue }
+        for file in files {
+            guard
+                let name = file["name"] as? String,
+                let lineCoverage = file["lineCoverage"] as? Double,
+                let coveredLines = file["coveredLines"] as? Int,
+                let executableLines = file["executableLines"] as? Int,
+                executableLines > 0
+            else { continue }
+
+            // Skip test files and app entry points
+            if name.contains("Test") || name.contains("Spec") || name == "CIDemoApp.swift" { continue }
+
+            if lineCoverage < coverageThreshold {
+                belowThreshold.append(FileCoverage(
+                    name: name,
+                    coverage: lineCoverage,
+                    covered: coveredLines,
+                    executable: executableLines
+                ))
+            }
+        }
+    }
+
+    if !belowThreshold.isEmpty {
+        var report = "### Coverage Below 80%\n\n"
+        report += "| File | Coverage | Lines |\n"
+        report += "|------|----------|-------|\n"
+        for f in belowThreshold.sorted(by: { $0.coverage < $1.coverage }) {
+            let pct = String(format: "%.1f%%", f.coverage * 100)
+            report += "| `\(f.name)` | \(pct) | \(f.covered)/\(f.executable) |\n"
+        }
+        fail(report)
+    }
+}
+
 // Report failed tests from JUnit report
 let reportPath = "fastlane/test_output/report.junit"
 if let xmlData = FileManager.default.contents(atPath: reportPath),
