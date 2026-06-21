@@ -22,6 +22,12 @@ if pr.title.lowercased().contains("wip") {
     warn("PR is marked as WIP.")
 }
 
+// Fail if PR title doesn't start with a Jira ticket e.g. [CLX-152]
+let jiraPattern = #"^\[[A-Z]+-\d+\]"#
+if pr.title.range(of: jiraPattern, options: .regularExpression) == nil {
+    fail("PR title must start with a Jira ticket e.g. `[CLX-152] Add offline model`")
+}
+
 // Warn if no tests modified when source files changed
 let sourceChanged = git.modifiedFiles.contains { $0.hasSuffix(".swift") && !$0.contains("Test") && !$0.contains("Spec") }
 let testsChanged = git.modifiedFiles.contains { $0.contains("Test") || $0.contains("Spec") }
