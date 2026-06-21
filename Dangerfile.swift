@@ -13,6 +13,7 @@ if totalChanges > bigPRThreshold {
 }
 
 // Fail if PR has no description
+
 if pr.body == nil || pr.body?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true {
     fail("Please provide a PR description.")
 }
