@@ -44,4 +44,9 @@ final class UserViewModel {
             state = .failed(error.localizedDescription)
         }
     }
+    
+    
+    func getName() -> String {
+        "Ahmed"
+    }
 }

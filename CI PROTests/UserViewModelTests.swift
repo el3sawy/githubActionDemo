@@ -41,4 +41,16 @@ final class UserViewModelTests: XCTestCase {
             return
         }
     }
+    
+    func test() {
+        let repository = MockUserRepository()
+        repository.users = [
+            User(id: 1, name: "Ahmed"),
+            User(id: 2, name: "Ali")
+        ]
+
+        let sut = UserViewModel(repository: repository)
+
+        XCTAssertEqual(sut.getName(), "Ahmed")
+    }
 }

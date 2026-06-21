@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "0F7D4F9F-72A9-406B-9FFB-0D53CAC3385C",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:CIDemo.xcodeproj",
+        "identifier" : "E2964F302FE089A900812A0A",
+        "name" : "CI PROTests"
+      }
+    }
+  ],
+  "version" : 1
+}

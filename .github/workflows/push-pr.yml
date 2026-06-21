@@ -8,6 +8,10 @@ on:
 jobs:
   test:
     runs-on: macos-26
+    permissions:
+      contents: read
+      pull-requests: write
+      statuses: write
 
     steps:
       - name: Select Xcode 26.5
@@ -15,12 +19,12 @@ jobs:
         with: 
           xcode-version: '26.5'
       - name: Checkout code
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v4
       
       - name: ruby version
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 4.0.1
+          ruby-version: 3.3
           bundler-cache: true
       
       - name: Install Bundler
@@ -28,24 +32,36 @@ jobs:
      
       - name: Run Tests
         run: bundle exec fastlane tests
-      
+
       - name: Generate coverage JSON
+        if: always()
         run: xcrun xccov view --report --json fastlane/test_output/CIDemo.xcresult > coverage.json
 
       - name: Upload coverage artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: coverage.json
 
       - name: Upload xcresult artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: xcresult
           path: fastlane/test_output/CIDemo.xcresult
 
+      - name: Install Danger JS
+        if: always() && github.event_name == 'pull_request'
+        run: npm install -g danger
+
+      - name: Build Danger Swift
+        if: always() && github.event_name == 'pull_request'
+        run: swift build
+
       - name: Run Danger
-        if: github.event_name == 'pull_request'
+        if: always() && github.event_name == 'pull_request'
+        run: swift run danger-swift ci
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec danger pr ${{ github.event.pull_request.html_url }} --dangerfile=Dangerfile.yml
+
