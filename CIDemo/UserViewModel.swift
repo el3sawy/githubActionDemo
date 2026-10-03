@@ -20,6 +20,10 @@ protocol UserRepositoryProtocol {
 final class UserViewModel {
 
     enum State: Equatable {
+        
+        
+        
+        
         case idle
         case loading
         case loaded([User])
@@ -43,5 +47,10 @@ final class UserViewModel {
         } catch {
             state = .failed(error.localizedDescription)
         }
+    }
+    
+    
+    func getName() -> String {
+        "Ahmed"
     }
 }
