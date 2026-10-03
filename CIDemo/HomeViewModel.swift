@@ -11,7 +11,7 @@ import Foundation
 class HomeViewModel {
     
     func getData() -> String {
-        return "Hello World"
+        return "Hello Ahmed"
     }
     
     func getList() -> [String] {
