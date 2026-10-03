@@ -22,8 +22,6 @@ final class UserViewModel {
     enum State: Equatable {
         
         
-        
-        
         case idle
         case loading
         case loaded([User])
